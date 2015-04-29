@@ -50,7 +50,7 @@ public class DynTable {
 	public void dumpPath(){
 		StringBuffer sb = new StringBuffer();
 		
-		for (int i = 0; i < walkCounter; i++){
+		for (int i = 0; i < walkCounter-1; i++){
 			sb.append(walk[i] + " ");
 		}
 		System.out.println("Current walk through the matrix: \n" + sb.toString());
@@ -118,13 +118,13 @@ public class DynTable {
 		}
 		
 
-		walk[walkCounter++] = path;
+		//walk[walkCounter++] = path;
 		return largest;
 	}
 	
 	
 	
-	private final int MAXLENGTH = 10000;
+	public static final int MAXLENGTH = 10000;
 	private int[] walk = {};
 	private int walkCounter = 0;
 	private char[] charA = {};
