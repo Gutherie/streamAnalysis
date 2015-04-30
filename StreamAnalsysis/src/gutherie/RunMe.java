@@ -88,7 +88,7 @@ public class RunMe {
 			+ "StreamAnalysis  Copyright (C) 2015  Jason R. Baker" + System.lineSeparator()
 			+ "This program comes with ABSOLUTELY NO WARRANTY." + System.lineSeparator()
 			+ "This is free software, and you are welcome to redistribute it" + System.lineSeparator()
-			+ "under certain conditions; type `show c' for details.";
+			+ "under certain conditions.";
 	
 	private static final String HELP = ""
 			+ "h - for help" + System.lineSeparator() + ""
