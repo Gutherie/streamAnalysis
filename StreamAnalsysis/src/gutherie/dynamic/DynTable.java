@@ -2,15 +2,32 @@ package gutherie.dynamic;
 
 
 /*
- * Use Needleman-Wunsch Algorithm to compare strings
- * http://en.wikipedia.org/wiki/Needleman-Wunsch_algorithm
+ *   This file is part of StreamAnalysis.
+ *
+ *   StreamAnalysis is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   StreamAnalysis is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with StreamAnalysis.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ *   Use Needleman-Wunsch Algorithm to compare strings
+ *   http://en.wikipedia.org/wiki/Needleman-Wunsch_algorithm
  */
 public class DynTable {
 	public DynTable(String a, String b) throws Exception{
 		if (a != null && b != null && a.length() < MAXLENGTH && b.length()< MAXLENGTH){
 			charA = a.toCharArray();
 			charB = b.toCharArray();
-			walk = new int[charA.length + charB.length];
+			walk = new int[charA.length][charB.length];
 		}
 		else {
 			throw new Exception("String parameters must not be null nor larger than " + MAXLENGTH + " characters!");
@@ -24,8 +41,8 @@ public class DynTable {
 
 		count = new int[charA.length+1][charB.length+1];
 		
-		for (int i = 0; i < charA.length; i ++){
-			for (int j = 0; j < charB.length; j++){
+		for (int i = 0; i < charA.length+1; i ++){
+			for (int j = 0; j < charB.length+1; j++){
 				if (i==0 && j==0){
 					count[i][j] = 0;
 				}
@@ -50,8 +67,14 @@ public class DynTable {
 	public void dumpPath(){
 		StringBuffer sb = new StringBuffer();
 		
-		for (int i = 0; i < walkCounter-1; i++){
-			sb.append(walk[i] + " ");
+		for (int i = 0; i < walk.length; i++){
+			for (int j = 0; j< walk[0].length; j++){
+				sb.append(walk[i][j] + "\t");
+				if (j == walk[0].length-1){
+					sb.append("\n");
+				}
+			}
+			
 		}
 		System.out.println("Current walk through the matrix: \n" + sb.toString());
 	}
@@ -59,27 +82,27 @@ public class DynTable {
 	public void dumpMatrix(){
 		StringBuffer sb = new StringBuffer();
 		
-		for (int i = -1; i < charA.length; i++){
-			for (int j = -1; j < charB.length; j++){
+		for (int i = -1; i <= charA.length; i++){
+			for (int j = -1; j <= charB.length; j++){
 				if (i == -1){
 					if (j == -1 || j == 0){
 						sb.append("\t");
 					}
 					else {
-						sb.append(charB[j] + "\t");
+						sb.append(charB[j-1] + "\t");
 					}
 				}
 				else if (i == 0 && j == -1){
 					sb.append("\t");
 				}
 				else if (j == -1){
-					sb.append(charA[i] + "\t");
+					sb.append(charA[i-1] + "\t");
 				}
 				else {
 					sb.append(count[i][j] + "\t");
 				}				
 				
-				if (j == charA.length-1){
+				if (j == (charB.length)){
 					sb.append("\n");
 				}
 			}
@@ -110,7 +133,7 @@ public class DynTable {
 		
 		// compare characters, case sensitive
 		
-		if (charA[I] == charB[J]){
+		if (charA[I-1] == charB[J-1]){
 			largest += 1;
 		}
 		else {
@@ -118,16 +141,13 @@ public class DynTable {
 		}
 		
 
-		//walk[walkCounter++] = path;
+		walk[I-1][J-1] = path;
 		return largest;
 	}
-	
-	
-	
+		
 	public static final int MAXLENGTH = 10000;
-	private int[] walk = {};
-	private int walkCounter = 0;
 	private char[] charA = {};
 	private char[] charB = {};
 	private int[][] count;
+	private int[][] walk;
 }

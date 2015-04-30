@@ -1,5 +1,23 @@
 package gutherie;
 
+/*
+ *   This file is part of StreamAnalysis.
+ *
+ *   StreamAnalysis is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   StreamAnalysis is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with StreamAnalysis.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 import gutherie.dynamic.DynTable;
 
 import java.io.BufferedReader;
@@ -65,7 +83,13 @@ public class RunMe {
 		return input;
 	}
 	private static final String INTRO = ""
-			+ "Welcome to the stream analysis tool.";
+			+ "Welcome to the StreamAnalysis tool." + System.lineSeparator()
+			 + System.lineSeparator() 
+			+ "StreamAnalysis  Copyright (C) 2015  Jason R. Baker" + System.lineSeparator()
+			+ "This program comes with ABSOLUTELY NO WARRANTY." + System.lineSeparator()
+			+ "This is free software, and you are welcome to redistribute it" + System.lineSeparator()
+			+ "under certain conditions; type `show c' for details.";
+	
 	private static final String HELP = ""
 			+ "h - for help" + System.lineSeparator() + ""
 			+ "1 - two string analysis" + System.lineSeparator() + ""
